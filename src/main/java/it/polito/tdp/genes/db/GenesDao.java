@@ -93,11 +93,15 @@ public class GenesDao {
 				if(g1.getChromosome()== g2.getChromosome()) {
 				//doppio del valore assoluto di corr se i due geni stesso cromosoma.
 					a.setPeso(2*Math.abs(res.getDouble("corr")));
+					//g1.setPeso(a.getPeso());
+					//g2.setPeso(a.getPeso());
 				}
 				
 				else {			
 				//valore assoluto di tale corr se i due geni non appartengono a stesso cromosoma
 					a.setPeso(Math.abs(res.getDouble("corr")));
+					//g1.setPeso(a.getPeso());
+					//g2.setPeso(a.getPeso());
 				}
 				
 				result.add(a);

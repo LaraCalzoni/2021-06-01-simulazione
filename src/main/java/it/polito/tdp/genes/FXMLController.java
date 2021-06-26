@@ -5,8 +5,15 @@
 package it.polito.tdp.genes;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import org.jgrapht.graph.DefaultWeightedEdge;
+
+import it.polito.tdp.genes.model.Adiacenza;
 import it.polito.tdp.genes.model.Genes;
 import it.polito.tdp.genes.model.Model;
 import javafx.event.ActionEvent;
@@ -30,7 +37,7 @@ public class FXMLController {
     private Button btnCreaGrafo; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbGeni"
-    private ComboBox<?> cmbGeni; // Value injected by FXMLLoader
+    private ComboBox<Genes> cmbGeni; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnGeniAdiacenti"
     private Button btnGeniAdiacenti; // Value injected by FXMLLoader
@@ -46,14 +53,53 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-    	
+    	txtResult.clear();
+    	this.model.creaGrafo();
+    	txtResult.appendText("GRAFO CREATO con "+this.model.nVertici()+" vertici e "+this.model.nArchi()+" archi!"+"\n");
 
+    	this.cmbGeni.getItems().addAll(this.model.getVertici());
     }
 
     @FXML
     void doGeniAdiacenti(ActionEvent event) {
 
+    	txtResult.clear();
+    	List <Genes> adiacenti = new ArrayList<>();
+    	List <Adiacenza> adiacenze = new ArrayList<>();
+    	Genes gene = this.cmbGeni.getValue();
+    	if(gene==null ) {
+    		txtResult.appendText("Selezionare un gene!!!");
+    		return;
+    	}
+    	for(Adiacenza a : this.model.getAdiacenze()) {
+    		if(a.getGene1().equals(gene) ) { //vuol dire che gene2 è adiacente
+    			adiacenti.add(a.getGene2());
+    			a.getGene2().setPeso(a.getPeso());
+    			
+    		}
+    		if(a.getGene2().equals(gene)) { //vuol dire che gene1 è adiacente
+    			adiacenti.add(a.getGene1());
+    			a.getGene1().setPeso(a.getPeso());
+    		}
+    	}
     	
+    	for (Genes gg : adiacenti) {
+    		txtResult.appendText(gg+" --> "+ gg.getPeso()+"\n");
+    	}
+    	
+    	/*
+    	for (Genes g : this.model.getAdiacenti(gene)) {
+    		
+    		adiacenti.add(g);
+    		
+    	}
+    	
+    
+    	    	
+    	for (Genes gg : adiacenti) {
+    		txtResult.appendText(gg+" --> "+ gg.getPeso()+"\n");
+    	}
+    	*/
     }
 
     @FXML

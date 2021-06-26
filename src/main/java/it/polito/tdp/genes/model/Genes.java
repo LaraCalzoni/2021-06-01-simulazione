@@ -5,12 +5,14 @@ public class Genes {
 	private String geneId;
 	private String essential;
 	private int chromosome;
+	private double peso;
 	
 	public Genes(String geneId, String essential, int chromosome) {
 		super();
 		this.geneId = geneId;
 		this.essential = essential;
 		this.chromosome = chromosome;
+		peso = 0.0;
 	}
 
 	public String getGeneId() {
@@ -65,6 +67,14 @@ public class Genes {
 	@Override
 	public String toString() {
 		return this.geneId;
+	}
+
+	public double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(double peso) {
+		this.peso = peso;
 	}
 
 
