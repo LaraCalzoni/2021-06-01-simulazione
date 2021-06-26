@@ -65,7 +65,6 @@ public class FXMLController {
 
     	txtResult.clear();
     	List <Genes> adiacenti = new ArrayList<>();
-    	List <Adiacenza> adiacenze = new ArrayList<>();
     	Genes gene = this.cmbGeni.getValue();
     	if(gene==null ) {
     		txtResult.appendText("Selezionare un gene!!!");
@@ -82,6 +81,16 @@ public class FXMLController {
     			a.getGene1().setPeso(a.getPeso());
     		}
     	}
+    	
+    	Collections.sort(adiacenti, new Comparator <Genes>() {
+
+			@Override
+			public int compare(Genes o1, Genes o2) {
+				// TODO Auto-generated method stub
+				return  -Double.compare(o1.getPeso(), o2.getPeso());
+			}
+    		
+    	});
     	
     	for (Genes gg : adiacenti) {
     		txtResult.appendText(gg+" --> "+ gg.getPeso()+"\n");
